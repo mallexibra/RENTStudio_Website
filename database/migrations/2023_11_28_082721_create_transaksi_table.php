@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_studio');
             $table->string('nama');
             $table->string('bukti');
-            $table->enum('status', ['pending', 'approved', 'unapproved'])->default('status');
+            $table->enum('status', ['pending', 'approved', 'unapproved'])->default('pending');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users');
