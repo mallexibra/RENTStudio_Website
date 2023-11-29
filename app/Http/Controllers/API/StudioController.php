@@ -15,7 +15,7 @@ class StudioController extends Controller
             $studios = Studio::all();
 
             for ($i = 0; $i < $studios->count(); $i++) {
-                $studios[$i]['thumbnail'] = url(public_path('/thumbnails/' . $studios[$i]['thumbnail']));
+                $studios[$i]['thumbnail'] = url('/thumbnails/' . $studios[$i]['thumbnail']);
             }
 
             return response()->json([
@@ -38,7 +38,7 @@ class StudioController extends Controller
         try {
             $studio = Studio::findOrFail($id);
 
-            $studio['thumbnail'] = url(public_path('/thumbnails/' . $studio['thumbnail']));
+            $studio['thumbnail'] = url('/thumbnails/' . $studio['thumbnail']);
 
             return response()->json([
                 "status" => true,
@@ -104,7 +104,7 @@ class StudioController extends Controller
                     "jam_tutup" => $request->jam_tutup,
                     "status" => $request->status,
                     "peralatan" => $request->peralatan,
-                    "thumbnail" => url(public_path('/thumbnails/' . $fileName))
+                    "thumbnail" => url('/thumbnails/' . $fileName)
                 ]
             ]);
         } catch (\Exception $e) {
@@ -192,7 +192,7 @@ class StudioController extends Controller
                     "jam_tutup" => $jam_tutup,
                     "status" => $status,
                     "peralatan" => $peralatan,
-                    "thumbnail" => $thumbnail,
+                    "thumbnail" =>  url('/thumbnails/' . $thumbnail),
                 ]
             ]);
         } catch (\Exception $e) {

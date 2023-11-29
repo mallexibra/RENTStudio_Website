@@ -15,7 +15,7 @@ class TransaksiController extends Controller
             $transaksi = Transaksi::all();
 
             for ($i = 0; $i < $transaksi->count(); $i++) {
-                $transaksi[$i]['bukti'] = url(public_path('/bukti/' . $transaksi[$i]['bukti']));
+                $transaksi[$i]['bukti'] = url('/bukti/' . $transaksi[$i]['bukti']);
             }
 
             return response()->json([
@@ -36,7 +36,7 @@ class TransaksiController extends Controller
         try {
             $transaksi = Transaksi::findOrFail($id);
 
-            $transaksi['bukti'] = url(public_path('/bukti/' . $transaksi['bukti']));
+            $transaksi['bukti'] = url('/bukti/' . $transaksi['bukti']);
 
             return response()->json([
                 "status" => true,
@@ -58,7 +58,7 @@ class TransaksiController extends Controller
                 "id_studio" => "required|numeric",
                 "nama" => "required",
                 "bukti" => "required|image|mimes:jpeg,jpg,png",
-                "status" => "required|in:pending,approved,unapproved"
+                "status" => "nullable|in:pending,approved,unapproved"
             ]);
 
             if ($validator->fails()) {
@@ -79,7 +79,7 @@ class TransaksiController extends Controller
                 "id_studio" => $request->id_studio,
                 "nama" => $request->nama,
                 "bukti" => $fileName,
-                "status" => $request->status
+                "status" => $request->status || "pending"
             ]);
 
 
@@ -90,8 +90,8 @@ class TransaksiController extends Controller
                     "id_user" => $request->id_user,
                     "id_studio" => $request->id_studio,
                     "nama" => $request->nama,
-                    "bukti" => url(public_path('/thumbnails/' . $fileName)),
-                    "status" => $request->status
+                    "bukti" => url('/thumbnails/' . $fileName),
+                    "status" => $request->status || "pending"
                 ]
             ]);
         } catch (\Exception $e) {
@@ -123,14 +123,14 @@ class TransaksiController extends Controller
                 if ($transaksi->bukti) {
                     unlink(public_path('/thumbnails/' . $transaksi->bukti));
                 }
-                $fileName = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('/thumbnails'), $fileName);
+                $bukti = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('/thumbnails'), $bukti);
             }
 
             $transaksi->update([
-                "nama" => $request->nama,
-                "bukti" => $fileName,
-                "status" => $request->status,
+                "nama" => $nama,
+                "bukti" => $bukti,
+                "status" => $status,
             ]);
 
             return response()->json(
@@ -138,9 +138,9 @@ class TransaksiController extends Controller
                     'status' => true,
                     "message" => "EDIT data transaksi by id successfully",
                     "data_edited" => [
-                        "nama" => $request->nama,
-                        "bukti" => url(public_path('/thumbnails/' . $fileName)),
-                        "status" => $request->status,
+                        "nama" => $nama,
+                        "bukti" => url('/thumbnails/' . $bukti),
+                        "status" => $status,
                     ]
                 ]
             );

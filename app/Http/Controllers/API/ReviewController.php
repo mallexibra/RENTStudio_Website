@@ -15,7 +15,7 @@ class ReviewController extends Controller
             $reviews = Review::all();
 
             return response()->json([
-                "status" => false,
+                "status" => true,
                 "message" => "GET all data reviews successfully",
                 "data" => $reviews
             ]);
@@ -33,7 +33,7 @@ class ReviewController extends Controller
             $review = Review::findOrFail($id);
 
             return response()->json([
-                "status" => false,
+                "status" => true,
                 "message" => "GET data review by id successfully",
                 "data" => $review
             ]);
@@ -97,20 +97,20 @@ class ReviewController extends Controller
             }
 
             $review->update([
-                "id_user" => $request->id_user,
-                "id_studio" => $request->id_studio,
-                "rating" => $request->rating,
-                "deskripsi" => $request->deskripsi,
+                "id_user" => $review->id_user,
+                "id_studio" => $review->id_studio,
+                "rating" => $rating,
+                "deskripsi" => $deskripsi,
             ]);
 
             return response()->json([
                 "status" => true,
                 "message" => "EDIT data review by id successfully",
                 "data_updated" => [
-                    "id_user" => $request->id_user,
-                    "id_studio" => $request->id_studio,
-                    "rating" => $request->rating,
-                    "deskripsi" => $request->deskripsi,
+                    "id_user" => $review->id_user,
+                    "id_studio" => $review->id_studio,
+                    "rating" => $rating,
+                    "deskripsi" => $deskripsi,
                 ]
             ]);
         } catch (\Exception $e) {

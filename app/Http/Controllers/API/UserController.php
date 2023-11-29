@@ -17,7 +17,7 @@ class UserController extends Controller
 
             for ($i = 0; $i < $users->count(); $i++) {
                 if ($users[$i]['profile'] != null) {
-                    $users[$i]['profile'] = url(public_path('/profiles/' . $users[$i]['profile']));
+                    $users[$i]['profile'] = url('/profiles/' . $users[$i]['profile']);
                 }
             }
 
@@ -40,7 +40,7 @@ class UserController extends Controller
             $user = User::findOrFail($id);
 
             if ($user['profile'] != null) {
-                $user['profile'] = url(public_path('/profiles/' . $user['profile']));
+                $user['profile'] = url('/profiles/' . $user['profile']);
             }
 
             return response()->json([
@@ -61,7 +61,7 @@ class UserController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 "name" => "required",
-                "email" => "required|unique",
+                "email" => "required|email|unique:users,email",
                 "password" => "required",
                 "profile" => "nullable|image|mimes:jpeg,jpg,png"
             ]);
@@ -93,7 +93,7 @@ class UserController extends Controller
                     "name" => $request->name,
                     "email" => $request->email,
                     "password" => Hash::make($request->password),
-                    "profile" => $fileName ? url(public_path('/profiles/' . $fileName)) : null
+                    "profile" => $fileName ? url('/profiles/' . $fileName) : null
                 ]
             ]);
         } catch (\Exception $e) {
@@ -146,8 +146,7 @@ class UserController extends Controller
                 "data_edited" => [
                     "name" => $name,
                     "email" => $email,
-                    "password" => $password,
-                    "profile" => $profile
+                    "profile" => url('/profiles/' . $profile)
                 ]
             ]);
         } catch (\Exception $e) {
