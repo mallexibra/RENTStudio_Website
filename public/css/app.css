@@ -4,11 +4,45 @@
     font-family: "poppins";
 }
 
+p {
+    padding: 0;
+    margin: 0;
+}
+
+.btn-purple {
+    background-color: #7255c1;
+    color: white;
+    font-size: 12px;
+}
+
+.btn-purple:hover {
+    background-color: #c6b6f0;
+}
+
 .bg-purple {
     background-color: #7255c1;
     color: white;
 }
 
+.text-purple {
+    color: #7255c1;
+}
+
 .shadow-custom {
     box-shadow: 0 0.5rem 1rem #7255c155;
+}
+
+.overlay {
+    background-color: #ececec;
+    padding: 8px;
+    border-radius: 10px;
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+.overlay > div {
+    background-color: white;
+    padding: 8px;
+    border-radius: 10px;
+    margin: 10px 6px;
 }

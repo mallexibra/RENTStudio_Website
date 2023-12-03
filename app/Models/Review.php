@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Review extends Model
 {
@@ -11,4 +12,9 @@ class Review extends Model
 
     protected $table = 'review';
     protected $fillable = ['id_user', 'id_studio', 'rating', 'deskripsi'];
+
+    public function users()
+    {
+        return  $this->belongsTo(User::class, 'id_user');
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layout.user');
-});
+// ROUTE FOR USERS
+// Dashboard
+Route::get('/', [DashboardUserController::class, 'index']);
+Route::get('/studio/{id}', [DashboardUserController::class, 'show']);

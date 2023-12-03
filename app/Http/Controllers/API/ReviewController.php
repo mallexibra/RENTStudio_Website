@@ -12,8 +12,11 @@ class ReviewController extends Controller
     public function index()
     {
         try {
-            $reviews = Review::all();
+            $reviews = Review::with('users')->get();
 
+            for ($i = 0; $i < $reviews->count(); $i++) {
+                $reviews[$i]['users']['profile'] = url("/profiles/" . $reviews[$i]['users']['profile']);
+            }
             return response()->json([
                 "status" => true,
                 "message" => "GET all data reviews successfully",
