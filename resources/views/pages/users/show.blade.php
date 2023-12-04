@@ -42,7 +42,7 @@
                     @endforeach
                 </ul>
             </div>
-            <a href="#" class="btn btn-purple">Booking Sekarang</a>
+            <a href="/studio/{{ $studio['id'] }}/booking" class="btn btn-purple">Booking Sekarang</a>
 
         </div>
         <div class="w-50">

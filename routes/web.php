@@ -18,3 +18,4 @@ use App\Http\Controllers\DashboardUserController;
 // Dashboard
 Route::get('/', [DashboardUserController::class, 'index']);
 Route::get('/studio/{id}', [DashboardUserController::class, 'show']);
+Route::get('/studio/{id}/booking', [DashboardUserController::class, 'booking']);

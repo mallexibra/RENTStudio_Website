@@ -46,3 +46,7 @@ p {
     border-radius: 10px;
     margin: 10px 6px;
 }
+
+.max-content {
+    width: max-content;
+}

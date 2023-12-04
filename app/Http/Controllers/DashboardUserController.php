@@ -57,6 +57,11 @@ class DashboardUserController extends Controller
         return view('pages.users.show', compact('studio', 'reviews'));
     }
 
+    public function booking(String $id)
+    {
+        return view('pages.users.booking');
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
