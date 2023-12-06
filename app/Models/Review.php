@@ -17,4 +17,9 @@ class Review extends Model
     {
         return  $this->belongsTo(User::class, 'id_user');
     }
+
+    public function studios()
+    {
+        return  $this->belongsTo(Studio::class, 'id_studio');
+    }
 }

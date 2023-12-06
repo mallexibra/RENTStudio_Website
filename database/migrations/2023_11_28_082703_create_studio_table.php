@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama');
             $table->text('deskripsi');
             $table->string('lokasi');
+            $table->string('harga');
             $table->time('jam_buka');
             $table->time('jam_tutup');
             $table->enum('status', ['tersedia', 'dipinjam', 'tidak_tersedia'])->default('tersedia');

@@ -47,25 +47,29 @@
         </div>
         <div class="w-50">
             <p class="fw-bold mb-3 fs-5">Review and Rating</p>
-            <div class="overlay">
-                @foreach ($reviews as $review)
-                    <div class="d-flex gap-3">
-                        <div>
-                            <span class="d-block rounded-circle nav-item text-bg-primary"
-                                style="width: 42px; height: 42px"></span>
-                        </div>
-                        <div class="w-auto">
-                            <p class="fw-semibold">{{ $review['users']['name'] }}</p>
-                            <div class="d-flex fw-medium gap-2">
-                                <span>Rating: </span>
-                                <img src="{{ asset('/icons/star-fill.svg') }}" alt="icon-star">
-                                <span>{{ $review['rating'] }}</span>
+            @if (count($reviews) > 0)
+                <div class="overlay">
+                    @foreach ($reviews as $review)
+                        <div class="d-flex gap-3">
+                            <div>
+                                <span class="d-block rounded-circle nav-item text-bg-primary"
+                                    style="width: 42px; height: 42px"></span>
                             </div>
-                            <p>{{ $review['deskripsi'] }}</p>
+                            <div class="w-auto">
+                                <p class="fw-semibold">{{ $review['users']['name'] }}</p>
+                                <div class="d-flex fw-medium gap-2">
+                                    <span>Rating: </span>
+                                    <img src="{{ asset('/icons/star-fill.svg') }}" alt="icon-star">
+                                    <span>{{ $review['rating'] }}</span>
+                                </div>
+                                <p>{{ $review['deskripsi'] }}</p>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
+            @else
+                <h6>Data review masih kosong</h6>
+            @endif
         </div>
     </div>
     </div>

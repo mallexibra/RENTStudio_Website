@@ -12,7 +12,7 @@ class ReviewController extends Controller
     public function index()
     {
         try {
-            $reviews = Review::with('users')->get();
+            $reviews = Review::with(['users', 'studios'])->get();
 
             for ($i = 0; $i < $reviews->count(); $i++) {
                 $reviews[$i]['users']['profile'] = url("/profiles/" . $reviews[$i]['users']['profile']);

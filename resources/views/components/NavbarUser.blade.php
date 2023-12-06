@@ -11,10 +11,10 @@
                     <a class="nav-link fw-semibold active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Riwayat</a>
+                    <a class="nav-link" href="/history">Riwayat</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Review-mu</a>
+                    <a class="nav-link" href="/review">Review-mu</a>
                 </li>
             </ul>
             <div class="d-flex dropdown" style="padding-right: 20px">

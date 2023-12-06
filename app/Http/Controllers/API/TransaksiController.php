@@ -2,20 +2,34 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
+use DateTime;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class TransaksiController extends Controller
 {
     public function index()
     {
-        try {
-            $transaksi = Transaksi::all();
+        function convertDate($inputDate)
+        {
+            try {
+                $date = new DateTime($inputDate);
 
+                $formattedDate = $date->format('j F Y | H:i:s');
+
+                return $formattedDate;
+            } catch (\Exception $e) {
+                return 'Error parsing date: ' . $e->getMessage();
+            }
+        }
+
+        try {
+            $transaksi = Transaksi::with(['user', 'studios'])->get();
             for ($i = 0; $i < $transaksi->count(); $i++) {
                 $transaksi[$i]['bukti'] = url('/bukti/' . $transaksi[$i]['bukti']);
+                $transaksi[$i]['date'] = convertDate($transaksi[$i]['created_at']);
             }
 
             return response()->json([
@@ -58,6 +72,7 @@ class TransaksiController extends Controller
                 "id_studio" => "required|numeric",
                 "nama" => "required",
                 "bukti" => "required|image|mimes:jpeg,jpg,png",
+                "harga" => "required",
                 "status" => "nullable|in:pending,approved,unapproved"
             ]);
 
@@ -78,10 +93,10 @@ class TransaksiController extends Controller
                 "id_user" => $request->id_user,
                 "id_studio" => $request->id_studio,
                 "nama" => $request->nama,
+                "harga" => $request->harga,
                 "bukti" => $fileName,
                 "status" => $request->status || "pending"
             ]);
-
 
             return response()->json([
                 "status" => true,
@@ -90,6 +105,7 @@ class TransaksiController extends Controller
                     "id_user" => $request->id_user,
                     "id_studio" => $request->id_studio,
                     "nama" => $request->nama,
+                    "harga" => $request->harga,
                     "bukti" => url('/thumbnails/' . $fileName),
                     "status" => $request->status || "pending"
                 ]

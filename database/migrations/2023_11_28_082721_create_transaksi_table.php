@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_studio');
             $table->string('nama');
+            $table->string('harga');
             $table->string('bukti');
             $table->enum('status', ['pending', 'approved', 'unapproved'])->default('pending');
             $table->timestamps();

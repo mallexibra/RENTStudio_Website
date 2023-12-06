@@ -73,6 +73,7 @@ class UserController extends Controller
                 ]);
             }
 
+            $fileName = null;
             if ($request->hasFile('profile')) {
                 $file = $request->file('profile');
                 $fileName = time() . '_' . $file->getClientOriginalName();

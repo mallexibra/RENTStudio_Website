@@ -64,6 +64,7 @@ class StudioController extends Controller
                 "lokasi" => "required",
                 "jam_buka" => "required",
                 "jam_tutup" => "required",
+                "harga" => "required",
                 "status" => "required|in:tersedia,dipinjam,tidak_tersedia",
                 "peralatan" => "required",
                 "thumbnail" => "required|image|mimes:jpeg,jpg,png"
@@ -89,9 +90,12 @@ class StudioController extends Controller
                 "jam_buka" => $request->jam_buka,
                 "jam_tutup" => $request->jam_tutup,
                 "status" => $request->status,
+                "harga" => $request->harga,
                 "peralatan" => $request->peralatan,
                 "thumbnail" => $fileName
             ]);
+
+            // $tes = Studio
 
             return response()->json([
                 "status" => true,
@@ -103,6 +107,7 @@ class StudioController extends Controller
                     "jam_buka" => $request->jam_buka,
                     "jam_tutup" => $request->jam_tutup,
                     "status" => $request->status,
+                    "harga" => $request->harga,
                     "peralatan" => $request->peralatan,
                     "thumbnail" => url('/thumbnails/' . $fileName)
                 ]
@@ -147,6 +152,11 @@ class StudioController extends Controller
                 $jam_tutup = $request->jam_tutup;
             }
 
+            $harga = $studio->harga;
+            if ($request->harga) {
+                $harga = $request->harga;
+            }
+
             $status = $studio->status;
             if ($request->status) {
                 $status = $request->status;
@@ -175,6 +185,7 @@ class StudioController extends Controller
                     "lokasi" => $lokasi,
                     "jam_buka" => $jam_buka,
                     "jam_tutup" => $jam_tutup,
+                    "harga" => $harga,
                     "status" => $status,
                     "peralatan" => $peralatan,
                     "thumbnail" => $thumbnail,

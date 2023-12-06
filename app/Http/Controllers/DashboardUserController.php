@@ -16,8 +16,9 @@ class DashboardUserController extends Controller
         $url = env("API_URL");
 
         $studios = json_decode($client->request("GET", $url . '/studios')->getBody(), true)['data'];
+        $transaction = json_decode($client->request("GET", $url . '/transaksi')->getBody(), true)['data'];
 
-        return view('pages.users.dashboard', compact('studios'));
+        return view('pages.users.dashboard', compact('studios', 'transaction'));
     }
 
     /**
@@ -59,7 +60,54 @@ class DashboardUserController extends Controller
 
     public function booking(String $id)
     {
-        return view('pages.users.booking');
+        $client = new Client();
+        $url = env("API_URL");
+
+        $studio = json_decode($client->request("GET", $url . "/studios/" . $id)->getBody(), true)['data'];
+
+        return view('pages.users.booking', compact("studio", "id"));
+    }
+
+    public function bookingnow(Request $request, String $id)
+    {
+        $client = new Client();
+        $url = env("API_URL");
+
+        $response = json_decode($client->request("POST", $url . "/transaksi", [
+            "multipart" => [
+                [
+                    "name" => "id_user",
+                    "contents" => 1,
+                ],
+                [
+                    "name" => "id_studio",
+                    "contents" => $id,
+                ],
+                [
+                    "name" => "nama",
+                    "contents" => $request->pesan,
+                ],
+                [
+                    "name" => "harga",
+                    "contents" => $request->harga,
+                ],
+                [
+                    "name" => "bukti",
+                    "contents" => fopen($request->file('bukti'), 'r'),
+                    "filename" => $request->file('bukti')->getClientOriginalName(),
+                    "headers" => [
+                        "Content-Type" => "<Content-type header>"
+                    ]
+                ],
+            ]
+        ])->getBody(), true);
+
+        echo ($response['status']);
+        if ($response['status']) {
+            return redirect("/");
+        } else {
+            return redirect("/");
+        }
     }
 
     /**
