@@ -14,9 +14,6 @@ class ReviewController extends Controller
         try {
             $reviews = Review::with(['users', 'studios'])->get();
 
-            for ($i = 0; $i < $reviews->count(); $i++) {
-                $reviews[$i]['users']['profile'] = url("/profiles/" . $reviews[$i]['users']['profile']);
-            }
             return response()->json([
                 "status" => true,
                 "message" => "GET all data reviews successfully",

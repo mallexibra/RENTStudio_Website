@@ -16,9 +16,8 @@ class DashboardUserController extends Controller
         $url = env("API_URL");
 
         $studios = json_decode($client->request("GET", $url . '/studios')->getBody(), true)['data'];
-        $transaction = json_decode($client->request("GET", $url . '/transaksi')->getBody(), true)['data'];
 
-        return view('pages.users.dashboard', compact('studios', 'transaction'));
+        return view('pages.users.dashboard', compact('studios'));
     }
 
     /**
@@ -51,6 +50,7 @@ class DashboardUserController extends Controller
         $reviews = collect([]);
         foreach ($data as $item) {
             if ($item['id_studio'] == $id) {
+                $item['users']['profile'] = url('/profiles/' . $item['users']['profile']);
                 $reviews->push($item);
             }
         }

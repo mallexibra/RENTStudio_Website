@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('harga');
             $table->string('bukti');
-            $table->enum('status', ['pending', 'approved', 'unapproved'])->default('pending');
+            $table->enum('status', ['pending', 'approved', 'unapproved', 'finish', 'finished'])->default('pending');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users');

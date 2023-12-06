@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,8 @@ Route::get("/history", [RiwayatController::class, 'index']);
 // Review
 Route::get("/review", [ReviewController::class, 'index']);
 Route::get("/review/add/{id}", [ReviewController::class, 'create']);
+Route::post("/review/add/{id}", [ReviewController::class, 'store']);
+
+// Profile
+Route::get("/profile/edit/{id}", [UserController::class, 'edit']);
+Route::post("/profile/edit/{id}", [UserController::class, 'update']);

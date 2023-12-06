@@ -42,8 +42,11 @@
                     @endforeach
                 </ul>
             </div>
-            <a href="/studio/{{ $studio['id'] }}/booking" class="btn btn-purple">Booking Sekarang</a>
-
+            @if ($studio['status'] == 'tersedia')
+                <a href="/studio/{{ $studio['id'] }}/booking" class="btn btn-purple">Booking Sekarang</a>
+            @else
+                <a href="#" class="btn btn-red">Tidak Dapat booking</a>
+            @endif
         </div>
         <div class="w-50">
             <p class="fw-bold mb-3 fs-5">Review and Rating</p>
@@ -53,7 +56,7 @@
                         <div class="d-flex gap-3">
                             <div>
                                 <span class="d-block rounded-circle nav-item text-bg-primary"
-                                    style="width: 42px; height: 42px"></span>
+                                    style="width: 42px; height: 42px; background-image: url('{{ $review['users']['profile'] }}'); background-size:cover;"></span>
                             </div>
                             <div class="w-auto">
                                 <p class="fw-semibold">{{ $review['users']['name'] }}</p>

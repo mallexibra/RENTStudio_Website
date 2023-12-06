@@ -6,12 +6,13 @@
     <h1 class="text-purple fw-bold">Review Kamu</h1>
     <p>History review kamu...</p>
 
-    <div class="mt-5">
+    <div class="mt-5 d-flex flex-wrap">
         @if (count($reviews) > 0)
             @foreach ($reviews as $item)
-                <div style="max-width: max-content" class="d-flex bg-lighht p-3 rounded shadow-sm align-items-start">
+                <div style="max-width: max-content; margin: 8px"
+                    class="d-flex bg-lighht p-3 rounded shadow-sm align-items-start">
                     <span class="d-block rounded-circle nav-item text-bg-primary"
-                        style="width: 42px; height: 42px; background-image: url({{ $item['users']['profile'] }})"></span>
+                        style="width: 42px; height: 42px; background-size: cover; background-image: url('{{ $item['users']['profile'] }}');"></span>
                     <div class="mx-2">
                         <h6>{{ $item['users']['name'] }}</h6>
                         <p style="font-size: 12px">Studio: {{ $item['studios']['nama'] }}</p>

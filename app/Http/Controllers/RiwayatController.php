@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class RiwayatController extends Controller
@@ -11,7 +12,10 @@ class RiwayatController extends Controller
      */
     public function index()
     {
-        return view("pages.users.riwayat.index");
+        $client = new Client();
+        $url = env("API_URL");
+        $transaction = json_decode($client->request("GET", $url . '/transaksi')->getBody(), true)['data'];
+        return view("pages.users.riwayat.index", compact("transaction"));
     }
 
     /**

@@ -19,6 +19,16 @@ p {
     background-color: #c6b6f0;
 }
 
+.btn-red {
+    background-color: #c15555;
+    color: white;
+    font-size: 12px;
+}
+
+.btn-red:hover {
+    background-color: #f6a4a4;
+}
+
 .bg-purple {
     background-color: #7255c1;
     color: white;
@@ -32,8 +42,12 @@ p {
     box-shadow: 0 0.5rem 1rem #7255c155;
 }
 
+#fileInput {
+    display: none;
+}
+
 .overlay {
-    background-color: #ececec;
+    background-color: #f2f2f2;
     padding: 8px;
     border-radius: 10px;
     overflow-y: auto;
@@ -49,4 +63,23 @@ p {
 
 .max-content {
     width: max-content;
+}
+
+.mx-auto {
+    margin: 12px auto;
+}
+
+.rating {
+    cursor: pointer;
+}
+
+.rating .star {
+    font-size: 24px;
+    color: #ddd;
+    transition: color 0.3s;
+}
+
+.rating .star:hover,
+.rating .star.selected {
+    color: #ffc107; /* Change to your desired star color */
 }
