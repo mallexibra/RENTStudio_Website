@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardAdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\ReviewController;
@@ -35,3 +36,8 @@ Route::post("/review/add/{id}", [ReviewController::class, 'store']);
 // Profile
 Route::get("/profile/edit/{id}", [UserController::class, 'edit']);
 Route::post("/profile/edit/{id}", [UserController::class, 'update']);
+
+
+// ROUTE FOR ADMIN
+// Dashboard
+Route::get("/admin", [DashboardAdminController::class, 'index']);

@@ -9,6 +9,20 @@ p {
     margin: 0;
 }
 
+.sub-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.text-xs {
+    font-size: 12px;
+}
+
+.bg-dark-purple {
+    background-color: #150a35;
+}
+
 .btn-purple {
     background-color: #7255c1;
     color: white;
