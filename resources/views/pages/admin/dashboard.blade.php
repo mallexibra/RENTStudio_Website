@@ -13,21 +13,28 @@
                 <p class="sub-title mt-3">Statistik Transaksi</p>
                 <div class="d-flex mt-3">
                     <div class="d-flex align-items-center">
-                        <div class="rounded me-3 bg-purple" style="width: 32px; height: 32px;"></div>
+                        <div class="rounded me-3 d-flex align-items-center justify-content-center bg-purple"
+                            style="width: 32px; height: 32px;"><img src="{{ asset('/icons/transaksi.png') }}"
+                                alt="transaksi-icon"></div>
                         <div>
                             <p class="text-xs">Total Transaksi</p>
                             <p class="fw-bold fs-5">{{ $totalTransaksi }}</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center mx-3">
-                        <div class="rounded me-3 bg-purple" style="width: 32px; height: 32px;"></div>
+                        <div class="rounded me-3 d-flex align-items-center justify-content-center bg-purple"
+                            style="width: 32px; height: 32px;">
+                            <img src="{{ asset('/icons/pending.png') }}" alt="pending-icon">
+                        </div>
                         <div>
                             <p class="text-xs">Transaksi Masuk</p>
                             <p class="fw-bold fs-5">{{ $totalTransaksiMasuk }}</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center">
-                        <div class="rounded me-3 bg-purple" style="width: 32px; height: 32px;"></div>
+                        <div class="rounded me-3 d-flex align-items-center justify-content-center bg-purple"
+                            style="width: 32px; height: 32px;"><img src="{{ asset('/icons/success.png') }}"
+                                alt="success-icon"></div>
                         <div>
                             <p class="text-xs">Transaksi Berhasil</p>
                             <p class="fw-bold fs-5">{{ $totalTransaksiBerhasil }}</p>
@@ -47,13 +54,13 @@
                             <div class="mx-3">
                                 <div class="d-flex align-items-start justify-content-between">
                                     <div class="me-2">
-                                        <p class="fw-semibold">Maulana Malik Ibrahim</p>
-                                        <p style="font-size: 12px">dfgdf</p>
+                                        <p class="fw-semibold">{{ $item['user']['name'] }}</p>
+                                        <p style="font-size: 12px">Studio: {{ $item['studios']['nama'] }}</p>
                                     </div>
                                 </div>
-                                <p>dfgfd</p>
+                                <p>{{ $item['nama'] }}</p>
                             </div>
-                            <p class="fw-semibold text-purple">Rp. {{ '25.000' }}</p>
+                            <p class="fw-semibold text-purple">Rp. {{ $item['harga'] }}</p>
                         </div>
                     @endforeach
                 </div>
