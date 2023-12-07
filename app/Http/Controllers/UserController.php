@@ -105,4 +105,9 @@ class UserController extends Controller
             return redirect("/");
         }
     }
+
+    public function adminindex(Request $request)
+    {
+        return view('pages.admin.account.index');
+    }
 }

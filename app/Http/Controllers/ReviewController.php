@@ -68,4 +68,9 @@ class ReviewController extends Controller
             return redirect('/review');
         }
     }
+
+    public function adminindex(Request $request)
+    {
+        return view('pages.admin.review.index');
+    }
 }

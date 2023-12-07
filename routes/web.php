@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\StudioController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -41,3 +42,15 @@ Route::post("/profile/edit/{id}", [UserController::class, 'update']);
 // ROUTE FOR ADMIN
 // Dashboard
 Route::get("/admin", [DashboardAdminController::class, 'index']);
+
+// Studio
+Route::get('/admin/studio', [StudioController::class, 'index']);
+
+// Payment
+Route::get('/admin/payment', [RiwayatController::class, 'adminindex']);
+
+// Review
+Route::get('/admin/review', [ReviewController::class, 'adminindex']);
+
+// Account
+Route::get("/admin/account", [UserController::class, 'adminindex']);
