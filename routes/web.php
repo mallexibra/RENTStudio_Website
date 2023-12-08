@@ -45,6 +45,11 @@ Route::get("/admin", [DashboardAdminController::class, 'index']);
 
 // Studio
 Route::get('/admin/studio', [StudioController::class, 'index']);
+Route::get('/admin/studio/create', [StudioController::class, 'create']);
+Route::post('/admin/studio/create', [StudioController::class, 'store']);
+Route::get('/admin/studio/edit/{id}', [StudioController::class, 'edit']);
+Route::post('/admin/studio/edit/{id}', [StudioController::class, 'update']);
+Route::delete('/admin/studio/delete/{id}', [StudioController::class, 'destroy']);
 
 // Payment
 Route::get('/admin/payment', [RiwayatController::class, 'adminindex']);

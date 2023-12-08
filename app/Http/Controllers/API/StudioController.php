@@ -228,7 +228,7 @@ class StudioController extends Controller
             $studio->delete();
 
             return response()->json([
-                "status" => false,
+                "status" => true,
                 "message" => "DELETE studio by id successfully"
             ]);
         } catch (\Exception $e) {

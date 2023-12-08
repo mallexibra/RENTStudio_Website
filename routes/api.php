@@ -34,19 +34,19 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 Route::get('/studios', [StudioController::class, 'index']);
 Route::get('/studios/{id}', [StudioController::class, 'show']);
 Route::post('/studios', [StudioController::class, 'store']);
-Route::patch('/studios/{id}', [StudioController::class, 'update']);
+Route::post('/studios/{id}', [StudioController::class, 'update']);
 Route::delete('/studios/{id}', [StudioController::class, 'destroy']);
 
 // Transaksi
 Route::get('/transaksi', [TransaksiController::class, 'index']);
 Route::get('/transaksi/{id}', [TransaksiController::class, 'show']);
 Route::post('/transaksi', [TransaksiController::class, 'store']);
-Route::patch('/transaksi/{id}', [TransaksiController::class, 'update']);
+Route::post('/transaksi/{id}', [TransaksiController::class, 'update']);
 Route::delete('/transaksi/{id}', [TransaksiController::class, 'destroy']);
 
 // Review
 Route::get('/reviews', [ReviewController::class, 'index']);
 Route::get('/reviews/{id}', [ReviewController::class, 'show']);
 Route::post('/reviews', [ReviewController::class, 'store']);
-Route::patch('/reviews/{id}', [ReviewController::class, 'update']);
+Route::post('/reviews/{id}', [ReviewController::class, 'update']);
 Route::delete('/reviews/{id}', [ReviewController::class, 'destroy']);
