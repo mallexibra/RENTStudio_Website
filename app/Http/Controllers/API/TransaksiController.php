@@ -10,26 +10,27 @@ use Illuminate\Support\Facades\Validator;
 
 class TransaksiController extends Controller
 {
+    public function convertDate($inputDate)
+    {
+        try {
+            $date = new DateTime($inputDate);
+
+            $formattedDate = $date->format('j F Y | H:i:s');
+
+            return $formattedDate;
+        } catch (\Exception $e) {
+            return 'Error parsing date: ' . $e->getMessage();
+        }
+    }
     public function index()
     {
-        function convertDate($inputDate)
-        {
-            try {
-                $date = new DateTime($inputDate);
-
-                $formattedDate = $date->format('j F Y | H:i:s');
-
-                return $formattedDate;
-            } catch (\Exception $e) {
-                return 'Error parsing date: ' . $e->getMessage();
-            }
-        }
 
         try {
             $transaksi = Transaksi::with(['user', 'studios'])->get();
             for ($i = 0; $i < $transaksi->count(); $i++) {
                 $transaksi[$i]['bukti'] = url('/bukti/' . $transaksi[$i]['bukti']);
-                $transaksi[$i]['date'] = convertDate($transaksi[$i]['created_at']);
+                $transaksi[$i]['studios']['thumbnail'] = url('/bukti/' . $transaksi[$i]['studios']['thumbnail']);
+                $transaksi[$i]['date'] = $this->convertDate($transaksi[$i]['created_at']);
             }
 
             return response()->json([
@@ -48,9 +49,11 @@ class TransaksiController extends Controller
     public function show(String $id)
     {
         try {
-            $transaksi = Transaksi::findOrFail($id);
+            $transaksi = Transaksi::with(['user', 'studios'])->findOrFail($id);
 
             $transaksi['bukti'] = url('/bukti/' . $transaksi['bukti']);
+            $transaksi['date'] = $this->convertDate($transaksi['created_at']);
+            $transaksi['studios']['thumbnail'] = url('/bukti/' . $transaksi['studios']['thumbnail']);
 
             return response()->json([
                 "status" => true,
@@ -86,7 +89,7 @@ class TransaksiController extends Controller
             if ($request->hasFile('bukti')) {
                 $file = $request->file('bukti');
                 $fileName = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('/thumbnails'), $fileName);
+                $file->move(public_path('/bukti'), $fileName);
             }
 
             Transaksi::create([

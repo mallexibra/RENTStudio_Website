@@ -10,29 +10,42 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Profile</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
+                @if (count($users) > 0)
+                    @foreach ($users as $user)
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>
+                                @if ($user['profile'])
+                                    <img src="{{ $user['profile'] }}" alt="profile-image">
+                                @else
+                                    <img src="" alt="profile-icon">
+                                @endif
+                            </td>
+                            <td>{{ $user['name'] }}</td>
+                            <td>{{ $user['email'] }}</td>
+                            <td>
+                                <a class="btn btn-yellow d-block w-100" href="/admin/user/edit/{{ $user['id'] }}">Edit</a>
+                                <form action="/admin/user/delete/{{ $user['id'] }}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn btn-red mt-2 d-block w-100" onclick="return confirm('Are you sure?')"
+                                        type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="5">Data masih kosong...</td>
+                    </tr>
+                @endif
             </tbody>
         </table>
     </div>

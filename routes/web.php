@@ -53,6 +53,8 @@ Route::delete('/admin/studio/delete/{id}', [StudioController::class, 'destroy'])
 
 // Payment
 Route::get('/admin/payment', [RiwayatController::class, 'adminindex']);
+Route::post('/admin/payment/{id}', [RiwayatController::class, 'editstatus']);
+Route::get('/admin/payment/{id}', [RiwayatController::class, 'show']);
 
 // Review
 Route::get('/admin/review', [ReviewController::class, 'adminindex']);

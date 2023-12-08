@@ -59,6 +59,9 @@
                         </tr>
                     @endforeach
                 @else
+                    <tr>
+                        <td colspan="10">Data masih kosong...</td>
+                    </tr>
                 @endif
             </tbody>
         </table>

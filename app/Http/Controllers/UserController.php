@@ -108,6 +108,11 @@ class UserController extends Controller
 
     public function adminindex(Request $request)
     {
-        return view('pages.admin.account.index');
+        $client = new Client();
+        $url = env("API_URL");
+
+        $users = json_decode($client->request("GET", $url . "/users")->getBody(), true)['data'];
+
+        return view('pages.admin.account.index', compact('users'));
     }
 }

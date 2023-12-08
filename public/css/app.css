@@ -23,6 +23,10 @@ p {
     background-color: #150a35;
 }
 
+.btn-custom {
+    font-size: 12px;
+}
+
 .btn-purple {
     background-color: #7255c1;
     color: white;
