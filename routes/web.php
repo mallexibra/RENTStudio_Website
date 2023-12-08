@@ -61,3 +61,8 @@ Route::get('/admin/review', [ReviewController::class, 'adminindex']);
 
 // Account
 Route::get("/admin/account", [UserController::class, 'adminindex']);
+Route::get('/admin/account/create', [UserController::class, 'admincreate']);
+Route::post('/admin/account/create', [UserController::class, 'adminstore']);
+Route::get("/admin/account/edit/{id}", [UserController::class, 'adminedit']);
+Route::post("/admin/account/edit/{id}", [UserController::class, 'adminupdate']);
+Route::delete("/admin/account/delete/{id}", [UserController::class, 'admindelete']);

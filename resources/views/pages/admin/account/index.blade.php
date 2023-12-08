@@ -6,6 +6,7 @@
     <h1 class="text-purple fw-bold">Accounts Page</h1>
 
     <div>
+        <a href="/admin/account/create" class="btn btn-purple mt-5 mb-2">Tambah User</a>
         <table class="table">
             <thead>
                 <tr>
@@ -31,8 +32,9 @@
                             <td>{{ $user['name'] }}</td>
                             <td>{{ $user['email'] }}</td>
                             <td>
-                                <a class="btn btn-yellow d-block w-100" href="/admin/user/edit/{{ $user['id'] }}">Edit</a>
-                                <form action="/admin/user/delete/{{ $user['id'] }}" method="post">
+                                <a class="btn btn-yellow d-block w-100"
+                                    href="/admin/account/edit/{{ $user['id'] }}">Edit</a>
+                                <form action="/admin/account/delete/{{ $user['id'] }}" method="post">
                                     @method('DELETE')
                                     @csrf
                                     <button class="btn btn-red mt-2 d-block w-100" onclick="return confirm('Are you sure?')"
