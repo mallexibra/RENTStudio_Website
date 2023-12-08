@@ -1,3 +1,7 @@
+@php
+    $page = request()->segment(2);
+@endphp
+
 <nav class="navbar navbar-expand-lg navbar-dark p-3 bg-purple shadow-custom">
     <div class="container">
         <a class="navbar-brand fs-4 fw-bold" href="/admin">RENT STUDIO</a>
@@ -8,30 +12,35 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link fw-semibold active" aria-current="page" href="/admin">Dashboard</a>
+                    <a class="nav-link {{ $page == '' ? 'fw-semibold active' : '' }}" aria-current="page"
+                        href="/admin">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/studio">Studio</a>
+                    <a class="nav-link {{ $page == 'studio' ? 'fw-semibold active' : '' }}"
+                        href="/admin/studio">Studio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/payment">Payments</a>
+                    <a class="nav-link {{ $page == 'payment' ? 'fw-semibold active' : '' }}"
+                        href="/admin/payment">Payments</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/review">Review</a>
+                    <a class="nav-link {{ $page == 'review' ? 'fw-semibold active' : '' }}"
+                        href="/admin/review">Review</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/account">Account</a>
+                    <a class="nav-link {{ $page == 'account' ? 'fw-semibold active' : '' }}"
+                        href="/admin/account">Account</a>
                 </li>
             </ul>
             <div class="d-flex dropdown" style="padding-right: 20px">
-                <span role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                    class="d-block rounded-circle nav-item text-bg-primary" style="width: 42px; height: 42px"></span>
+                <p role="button" data-bs-toggle="dropdown" aria-expanded="false" class="d-block nav-item">
+                    Selamat datang, <b>Admin</b>
+                </p>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Edit</a></li>
                     <li><a class="dropdown-item" href="#">Logout</a></li>
                 </ul>
-
             </div>
+
         </div>
     </div>
 </nav>
