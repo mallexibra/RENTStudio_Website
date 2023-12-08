@@ -11,4 +11,9 @@ class Studio extends Model
 
     protected $table = 'studio';
     protected $fillable = ["nama", "deskripsi", "lokasi", "jam_buka", "jam_tutup", "harga", "status", "peralatan", "thumbnail"];
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'id_studio');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Studio;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,16 +13,31 @@ class StudioController extends Controller
     public function index()
     {
         try {
-            $studios = Studio::all();
+            $studio =
+                Studio::with('reviews')->get();
 
-            for ($i = 0; $i < $studios->count(); $i++) {
-                $studios[$i]['thumbnail'] = url('/thumbnails/' . $studios[$i]['thumbnail']);
+            $users = User::all();
+
+            foreach ($studio as $item) {
+                foreach ($item['reviews'] as $rvw) {
+                    $tmpUser = [];
+                    foreach ($users as $usr) {
+                        if ($usr['id'] == $rvw['id_user']) {
+                            $tmpUser = $usr;
+                        }
+                    }
+                    $rvw['users'] = $tmpUser;
+                }
+            }
+
+            for ($i = 0; $i < $studio->count(); $i++) {
+                $studio[$i]['thumbnail'] = url('/thumbnails/' . $studio[$i]['thumbnail']);
             }
 
             return response()->json([
                 "status" => true,
                 "message" => "GET all data studio successfully",
-                "data" => $studios
+                "data" => $studio
             ]);
         } catch (\Exception $e) {
             return response()->json(

@@ -71,6 +71,11 @@ class ReviewController extends Controller
 
     public function adminindex(Request $request)
     {
-        return view('pages.admin.review.index');
+        $client = new Client();
+        $url = env("API_URL");
+
+        $studios = json_decode($client->request("GET", $url . "/studios")->getBody(), true)['data'];
+
+        return view('pages.admin.review.index', compact('studios'));
     }
 }
