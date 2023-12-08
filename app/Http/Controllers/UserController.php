@@ -112,8 +112,9 @@ class UserController extends Controller
         $url = env("API_URL");
 
         $users = json_decode($client->request("GET", $url . "/users")->getBody(), true)['data'];
+        $no = 1;
 
-        return view('pages.admin.account.index', compact('users'));
+        return view('pages.admin.account.index', compact('users', 'no'));
     }
 
     public function admincreate()

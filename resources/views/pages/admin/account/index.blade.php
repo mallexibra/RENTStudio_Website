@@ -21,7 +21,7 @@
                 @if (count($users) > 0)
                     @foreach ($users as $user)
                         <tr>
-                            <th scope="row">1</th>
+                            <th scope="row">{{ $no++ }}</th>
                             <td>
                                 @if ($user['profile'])
                                     <img src="{{ $user['profile'] }}" alt="profile-image">

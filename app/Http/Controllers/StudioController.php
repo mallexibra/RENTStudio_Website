@@ -15,7 +15,9 @@ class StudioController extends Controller
 
         $studio = json_decode($client->request("GET", $url . "/studios")->getBody(), true)['data'];
 
-        return view('pages.admin.studio.index', compact('studio'));
+        $no = 1;
+
+        return view('pages.admin.studio.index', compact('studio', 'no'));
     }
 
     public function create(Request $request)

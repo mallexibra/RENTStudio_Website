@@ -29,7 +29,7 @@
                             $alat = explode("\n", $item['peralatan']);
                         @endphp
                         <tr>
-                            <th scope="row">1</th>
+                            <th scope="row">{{ $no++ }}</th>
                             <td>
                                 <img width="220" src="{{ $item['thumbnail'] }}" alt="Thumbnail">
                             </td>

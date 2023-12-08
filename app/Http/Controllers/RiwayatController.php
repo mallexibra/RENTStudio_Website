@@ -20,8 +20,8 @@ class RiwayatController extends Controller
         $client = new Client();
         $url = env("API_URL");
         $transaction = json_decode($client->request("GET", $url . '/transaksi')->getBody(), true)['data'];
-
-        return view('pages.admin.payment.index', compact('transaction'));
+        $no = 1;
+        return view('pages.admin.payment.index', compact('transaction', 'no'));
     }
 
     public function editstatus(Request $request, String $id)

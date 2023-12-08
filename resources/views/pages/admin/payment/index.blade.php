@@ -22,7 +22,7 @@
                 @if (count($transaction) > 0)
                     @foreach ($transaction as $item)
                         <tr>
-                            <th scope="row">1</th>
+                            <th scope="row">{{ $no++ }}</th>
                             <td>{{ $item['user']['name'] }}</td>
                             <td>{{ $item['studios']['nama'] }}</td>
                             <td>Rp. {{ $item['harga'] }}</td>
