@@ -27,6 +27,16 @@ p {
     font-size: 12px;
 }
 
+.btn-disable {
+    background-color: #7e7e7e;
+    cursor: not-allowed;
+    border-radius: 6px;
+    border: none;
+    padding: 5px 8px;
+    color: white;
+    font-size: 12px;
+}
+
 .btn-purple {
     background-color: #7255c1;
     color: white;

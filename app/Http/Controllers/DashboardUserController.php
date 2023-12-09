@@ -71,7 +71,7 @@ class DashboardUserController extends Controller
             "multipart" => [
                 [
                     "name" => "id_user",
-                    "contents" => 1,
+                    "contents" => $request->session()->get('id_user'),
                 ],
                 [
                     "name" => "id_studio",

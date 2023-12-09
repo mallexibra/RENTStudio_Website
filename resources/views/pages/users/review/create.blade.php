@@ -20,6 +20,7 @@
             </div>
             <input type="hidden" name="rating" class="rating-value" value="{{ old('rating', 0) }}">
         </label>
+        <input type="hidden" value="{{ $transaksi['id'] }}" name="id_transaksi">
         <label class="d-block my-3" for="deskripsi">
             <span class="fw-semibold">Deskripsi</span>
             <textarea class="d-block form-control w-100" name="deskripsi" id="deskripsi" rows="3"></textarea>
@@ -28,7 +29,6 @@
     </form>
 
     <script>
-        // Initialize the star rating input
         $(document).ready(function() {
             $(".rating .star").click(function() {
                 var value = $(this).data('value');

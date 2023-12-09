@@ -38,7 +38,17 @@
                             <td>Rp. {{ $item['harga'] }}</td>
                             <td>{{ $item['jam_buka'] }}</td>
                             <td>{{ $item['jam_tutup'] }}</td>
-                            <td>{{ $item['status'] }}</td>
+                            <td>
+                                @if ($item['status'] == 'pending')
+                                    <span class="badge rounded-pill text-bg-success">
+                                        {{ $item['status'] }}
+                                    </span>
+                                @else
+                                    <span class="badge rounded-pill text-bg-secondary">
+                                        {{ $item['status'] }}
+                                    </span>
+                                @endif
+                            </td>
                             <td>
                                 <ul>
                                     @foreach ($alat as $i)
@@ -60,7 +70,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="10">Data masih kosong...</td>
+                        <td class="text-center fw-medium" colspan="10">Data masih kosong...</td>
                     </tr>
                 @endif
             </tbody>

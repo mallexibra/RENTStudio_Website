@@ -17,7 +17,7 @@
         </div>
         <div class="mb-3">
             <label for="lokasi" class="form-label">Lokasi</label>
-            <input type="text" class="form-control" name="lokasi" id="lokasi" placeholder="Ex. RENT Studio">
+            <input type="text" class="form-control" name="lokasi" id="lokasi" placeholder="Ex. Banyuwangi">
         </div>
         <div class="row g-3">
             <div class="col-md-6">
@@ -31,7 +31,7 @@
         </div>
         <div class="mb-3">
             <label for="harga" class="form-label">Harga</label>
-            <input type="number" class="form-control" name="harga" id="harga" placeholder="Ex. RENT Studio">
+            <input type="number" class="form-control" name="harga" id="harga" placeholder="Ex. 20000">
         </div>
         <div class="mb-3">
             <label for="deskripsi" class="form-label">Deskripsi Studio</label>

@@ -22,19 +22,19 @@
                                 @if ($item['status'] == 'pending')
                                     <span class="badge bg-secondary">Pending</span>
                                 @elseif($item['status'] == 'approved')
-                                    <span class="badge bg-secondary">Approved</span>
+                                    <span class="badge bg-success">Approved</span>
                                 @elseif($item['status'] == 'unapproved')
-                                    <span class="badge bg-secondary">Unapproved</span>
+                                    <span class="badge bg-danger">Unapproved</span>
                                 @elseif($item['status'] == 'finish')
-                                    <span class="badge bg-secondary">Finish</span>
+                                    <span class="badge bg-primary">Finish</span>
                                 @elseif($item['status'] == 'finished')
-                                    <span class="badge bg-secondary">Finish</span>
+                                    <span class="badge bg-primary">Finished</span>
                                 @endif
                             </div>
                             <p class="fw-semibold">Rp. {{ $item['harga'] ? $item['harga'] : '25.000' }}</p>
                             <p>{{ $item['nama'] }}</p>
                             @if ($item['status'] == 'finish')
-                                <a class="btn btn-purple" href="/review/add/{{ $item['studios']['id'] }}">Give a
+                                <a class="btn btn-purple" href="/review/add/{{ $item['id'] }}">Give a
                                     feedback</a>
                             @endif
                         </div>
@@ -42,7 +42,7 @@
                 @endforeach
             </div>
         @else
-            <h6>Data masih kosong...</h6>
+            <h6 class="text-center">Data masih kosong...</h6>
         @endif
     </div>
 @endsection

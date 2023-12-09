@@ -3,11 +3,11 @@
 @section('title', 'Review')
 
 @section('content')
-    <h1 class="text-purple fw-bold">Review Kamu</h1>
-    <p>History review kamu...</p>
+    <h1 class="text-purple text-center fw-bold">Review Kamu</h1>
+    <p class="text-center">History review kamu...</p>
 
-    <div class="mt-5 d-flex flex-wrap">
-        @if (count($reviews) > 0)
+    @if (count($reviews) > 0)
+        <div class="mt-5 d-flex flex-wrap">
             @foreach ($reviews as $item)
                 <div style="max-width: max-content; margin: 8px"
                     class="d-flex bg-lighht p-3 rounded shadow-sm align-items-start">
@@ -23,8 +23,8 @@
                     </div>
                 </div>
             @endforeach
-        @else
-            <h6 class="fs-6">Data masih kosong...</h6>
-        @endif
-    </div>
+        </div>
+    @else
+        <h6 class="mt-5 text-center">Data masih kosong...</h6>
+    @endif
 @endsection

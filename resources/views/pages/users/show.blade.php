@@ -23,7 +23,7 @@
                 @if ($studio['status'] == 'tersedia')
                     <span class="badge rounded-pill text-bg-success">Tersedia</span>
                 @else
-                    <span class="badge rounded-pill text-bg-danger">Tidak Tersedia</span>
+                    <span class="badge rounded-pill text-bg-danger">Masih disewa</span>
                 @endif
             </div>
             <div class="deskripsi">
@@ -45,7 +45,7 @@
             @if ($studio['status'] == 'tersedia')
                 <a href="/studio/{{ $studio['id'] }}/booking" class="btn btn-purple">Booking Sekarang</a>
             @else
-                <a href="#" class="btn btn-red">Tidak Dapat booking</a>
+                <button disabled class="btn-disable">Booking Sekarang</button>
             @endif
         </div>
         <div class="w-50">

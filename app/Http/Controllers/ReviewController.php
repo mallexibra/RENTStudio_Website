@@ -11,7 +11,6 @@ class ReviewController extends Controller
     {
         $client = new Client();
         $url = env("API_URL");
-        $idUser = 1;
 
         $review = json_decode($client->request("GET", $url . "/reviews", [
             "headers" => [
@@ -21,7 +20,7 @@ class ReviewController extends Controller
 
         $reviews = collect([]);
         foreach ($review as $rvw) {
-            if ($rvw['id_user'] == $idUser) {
+            if ($rvw['id_user'] == $request->session()->get('id_user')) {
                 $rvw['users']['profile'] = url("/profiles/" . $rvw['users']['profile']);
                 $reviews->push($rvw);
             }
@@ -35,13 +34,20 @@ class ReviewController extends Controller
         $client = new Client();
         $url = env("API_URL");
 
-        $data = json_decode($client->request("GET", $url . "/studios/" . $id, [
+        $transaksi = json_decode($client->request("GET", $url . "/transaksi/" . $id, [
             "headers" => [
                 "Authorization" => "Bearer " . $request->session()->get('token')
             ]
         ])->getBody(), true)['data'];
 
-        return view('pages.users.review.create', compact('data'));
+        $data =
+            json_decode($client->request("GET", $url . "/studios/" . $transaksi['id_studio'], [
+                "headers" => [
+                    "Authorization" => "Bearer " . $request->session()->get('token')
+                ]
+            ])->getBody(), true)['data'];
+
+        return view('pages.users.review.create', compact('data', 'transaksi'));
     }
 
     public function store(Request $request, String $id)
@@ -53,7 +59,7 @@ class ReviewController extends Controller
             "multipart" => [
                 [
                     "name" => "id_user",
-                    "contents" => 1
+                    "contents" => $request->session()->get('id_user')
                 ],
                 [
                     "name" => "id_studio",
@@ -74,6 +80,18 @@ class ReviewController extends Controller
         ])->getBody(), true);
 
         if ($response['status']) {
+            $res =  json_decode($client->request("POST", $url . "/transaksi/" . $request->id_transaksi, [
+                "multipart" => [
+                    [
+                        "name" => "status",
+                        "contents" => "finished"
+                    ],
+                ],
+                "headers" => [
+                    "Authorization" => "Bearer " . $request->session()->get('token')
+                ]
+            ])->getBody(), true);
+
             return redirect('/review');
         } else {
             return redirect('/review');

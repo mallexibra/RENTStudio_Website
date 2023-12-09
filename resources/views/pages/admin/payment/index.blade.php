@@ -6,7 +6,7 @@
     <h1 class="text-purple fw-bold">Payments Page</h1>
 
     <div>
-        <table class="table">
+        <table class="mt-5 table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -45,6 +45,8 @@
                                     <form action="/admin/payment/{{ $item['id'] }}" method="post">
                                         @method('POST')
                                         @csrf
+                                        <input type="text" class="d-none" value="{{ $item['studios']['id'] }}"
+                                            name="id_studio" id="id_studio">
                                         <input type="text" class="d-none" value="approved" name="status" id="status">
                                         <button type="submit" onclick="return confirm('Yakin akan di approved?')"
                                             class="btn w-100 my-2 btn-custom text-bg-success">Approved</button>
@@ -57,13 +59,23 @@
                                         <button type="submit" onclick="return confirm('Yakin akan di unapproved?')"
                                             class="btn w-100 btn-custom text-bg-danger">Unapproved</button>
                                     </form>
+                                @elseif ($item['status'] == 'approved')
+                                    <form action="/admin/payment/{{ $item['id'] }}" method="post">
+                                        @method('POST')
+                                        @csrf
+                                        <input type="text" class="d-none" value="{{ $item['studios']['id'] }}"
+                                            name="id_studio" id="id_studio">
+                                        <input type="text" class="d-none" value="finish" name="status" id="status">
+                                        <button type="submit" onclick="return confirm('User sudah selesai menyewa?')"
+                                            class="btn w-100 my-2 btn-custom text-bg-primary">Finished</button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="10">Data masih kosong...</td>
+                        <td class="text-center fw-medium" colspan="7">Data masih kosong...</td>
                     </tr>
                 @endif
             </tbody>

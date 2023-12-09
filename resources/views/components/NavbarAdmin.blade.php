@@ -34,10 +34,10 @@
             </ul>
             <div class="d-flex dropdown" style="padding-right: 20px">
                 <p role="button" data-bs-toggle="dropdown" aria-expanded="false" class="d-block nav-item">
-                    Selamat datang, <b>Admin</b>
+                    Selamat datang, <b>{{ Session::get('fullname') }}</b>
                 </p>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
                 </ul>
             </div>
 

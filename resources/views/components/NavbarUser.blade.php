@@ -24,10 +24,11 @@
             </ul>
             <div class="d-flex dropdown" style="padding-right: 20px">
                 <span role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                    class="d-block rounded-circle nav-item text-bg-primary" style="width: 42px; height: 42px"></span>
+                    class="d-block rounded-circle nav-item"
+                    style="background-size: cover; background-image: url('{{ Session::get('profile') }}'); width: 42px; height: 42px"></span>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="/profile/edit/1">Edit</a></li>
-                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
                 </ul>
             </div>
         </div>

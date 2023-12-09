@@ -406,6 +406,7 @@ class UserController extends Controller
             session([
                 "id_user" => $response['data']['id'],
                 "fullname" => $response['data']['name'],
+                "profile" => $response['data']['profile'],
                 "role" => $response['data']['role'],
                 "token" => $response['token']
             ]);

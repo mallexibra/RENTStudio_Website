@@ -11,11 +11,19 @@ class RiwayatController extends Controller
     {
         $client = new Client();
         $url = env("API_URL");
-        $transaction = json_decode($client->request("GET", $url . '/transaksi', [
+        $data = json_decode($client->request("GET", $url . '/transaksi', [
             "headers" => [
                 "Authorization" => "Bearer " . $request->session()->get('token')
             ]
         ])->getBody(), true)['data'];
+
+        $transaction = collect([]);
+        foreach ($data as $item) {
+            if ($item['id_user'] == $request->session()->get('id_user')) {
+                $transaction->push($item);
+            }
+        }
+
         return view("pages.users.riwayat.index", compact("transaction"));
     }
 
@@ -48,6 +56,34 @@ class RiwayatController extends Controller
                 "Authorization" => "Bearer " . $request->session()->get('token')
             ]
         ])->getBody(), true);
+
+        if ($request->status == "approved") {
+            $client->request("POST", $url . "/studios/" . $request->id_studio, [
+                "multipart" => [
+                    [
+                        "name" => "status",
+                        "contents" => "dipinjam"
+                    ]
+                ],
+                "headers" => [
+                    "Authorization" => "Bearer " . $request->session()->get('token')
+                ]
+            ]);
+        }
+
+        if ($request->status == "finish") {
+            $client->request("POST", $url . "/studios/" . $request->id_studio, [
+                "multipart" => [
+                    [
+                        "name" => "status",
+                        "contents" => "tersedia"
+                    ]
+                ],
+                "headers" => [
+                    "Authorization" => "Bearer " . $request->session()->get('token')
+                ]
+            ]);
+        }
 
         if ($response['status']) {
             return redirect('/admin/payment');

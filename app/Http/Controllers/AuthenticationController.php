@@ -33,6 +33,8 @@ class AuthenticationController extends Controller
 
             $user = User::where('email', $request->email)->first();
 
+            $user['profile'] = url('/profiles/' . $user['profile']);
+
             return response()->json([
                 "status" => true,
                 "message" => "User login successfully",
