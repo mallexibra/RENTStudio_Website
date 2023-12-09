@@ -345,7 +345,7 @@ class UserController extends Controller
         $client = new Client();
         $url = env("API_URL");
 
-        $response = json_decode($client->request("POST", $url . "/users", [
+        $response = json_decode($client->request("POST", $url . "/register", [
             "multipart" => [
                 [
                     "name" => "name",
@@ -370,9 +370,6 @@ class UserController extends Controller
                         "Content-Type" => "<Content-type header>"
                     ]
                 ]
-            ],
-            "headers" => [
-                "Authorization" => "Bearer " . $request->session()->get('token')
             ]
         ])->getBody(), true);
 
@@ -392,7 +389,6 @@ class UserController extends Controller
     {
         $client = new Client();
         $url = env("API_URL");
-
         $response = json_decode($client->request("POST", $url . '/login', [
             "multipart" => [
                 [
@@ -403,10 +399,6 @@ class UserController extends Controller
                     "name" => "password",
                     "contents" => $request->password
                 ]
-            ],
-            "headers" => [
-                "Authorization" => "Bearer " . $request->session()->get('token')
-
             ]
         ])->getBody(), true);
 

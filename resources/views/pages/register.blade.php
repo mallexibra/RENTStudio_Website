@@ -43,7 +43,7 @@
             </div>
             <div class="mb-3">
                 <label for="profile" class="form-label">Photo Profile</label>
-                <input class="form-control" name="profile" type="file" id="profile">
+                <input required class="form-control" name="profile" type="file" id="profile">
             </div>
             <button class="btn w-100 btn-purple" type="submit">Register Now</button>
             <p class="mt-3 text-center">Have an account? <a style="text-decoration: none" class="fw-semibold"

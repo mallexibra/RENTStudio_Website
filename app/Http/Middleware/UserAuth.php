@@ -18,7 +18,7 @@ class UserAuth
         $token = $request->session()->get('token');
         $id = $request->session()->get('id_user');
         $role = $request->session()->get('role');
-        $fullname = $request->session()->get('name');
+        $fullname = $request->session()->get('fullname');
 
         if ($token && $id && $fullname && $role == "admin") {
             return $next($request);
