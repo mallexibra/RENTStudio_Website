@@ -7,45 +7,35 @@ use Illuminate\Http\Request;
 
 class DashboardUserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
         $client = new Client();
         $url = env("API_URL");
 
-        $studios = json_decode($client->request("GET", $url . '/studios')->getBody(), true)['data'];
+        $studios = json_decode($client->request("GET", $url . '/studios', [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true)['data'];
 
         return view('pages.users.dashboard', compact('studios'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Request $request, String $id)
     {
         $client = new Client();
         $url = env("API_URL");
 
-        $studio = json_decode($client->request("GET", $url . "/studios/" . $id)->getBody(), true)['data'];
-        $data = json_decode($client->request("GET", $url . "/reviews")->getBody(), true)['data'];
+        $studio = json_decode($client->request("GET", $url . "/studios/" . $id, [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true)['data'];
+        $data = json_decode($client->request("GET", $url . "/reviews", [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true)['data'];
 
         $reviews = collect([]);
         foreach ($data as $item) {
@@ -58,12 +48,16 @@ class DashboardUserController extends Controller
         return view('pages.users.show', compact('studio', 'reviews'));
     }
 
-    public function booking(String $id)
+    public function booking(Request $request, String $id)
     {
         $client = new Client();
         $url = env("API_URL");
 
-        $studio = json_decode($client->request("GET", $url . "/studios/" . $id)->getBody(), true)['data'];
+        $studio = json_decode($client->request("GET", $url . "/studios/" . $id, [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true)['data'];
 
         return view('pages.users.booking', compact("studio", "id"));
     }
@@ -99,6 +93,9 @@ class DashboardUserController extends Controller
                         "Content-Type" => "<Content-type header>"
                     ]
                 ],
+            ],
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
             ]
         ])->getBody(), true);
 
@@ -108,29 +105,5 @@ class DashboardUserController extends Controller
         } else {
             return redirect("/");
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

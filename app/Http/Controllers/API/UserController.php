@@ -44,7 +44,7 @@ class UserController extends Controller
             }
 
             return response()->json([
-                "status" => false,
+                "status" => true,
                 "message" => "GET data user by id successfully",
                 "data" => $user
             ]);
@@ -63,6 +63,7 @@ class UserController extends Controller
                 "name" => "required",
                 "email" => "required|email|unique:users,email",
                 "password" => "required",
+                "role" => "required",
                 "profile" => "nullable|image|mimes:jpeg,jpg,png"
             ]);
 
@@ -83,6 +84,7 @@ class UserController extends Controller
             User::create([
                 "name" => $request->name,
                 "email" => $request->email,
+                "role" => $request->role,
                 "password" => Hash::make($request->password),
                 "profile" => $fileName
             ]);
@@ -93,6 +95,7 @@ class UserController extends Controller
                 "data" => [
                     "name" => $request->name,
                     "email" => $request->email,
+                    "role" => $request->role,
                     "password" => Hash::make($request->password),
                     "profile" => $fileName ? url('/profiles/' . $fileName) : null
                 ]
@@ -113,6 +116,11 @@ class UserController extends Controller
             $name = $user->name;
             if ($request->name) {
                 $name = $request->name;
+            }
+
+            $role = $user->role;
+            if ($request->role) {
+                $role = $request->role;
             }
 
             $password = $user->password;
@@ -137,6 +145,7 @@ class UserController extends Controller
             $user->update([
                 "name" => $name,
                 "email" => $email,
+                "role" => $role,
                 "password" => $password,
                 "profile" => $profile
             ]);
@@ -147,6 +156,7 @@ class UserController extends Controller
                 "data_edited" => [
                     "name" => $name,
                     "email" => $email,
+                    "role" => $role,
                     "profile" => url('/profiles/' . $profile)
                 ]
             ]);

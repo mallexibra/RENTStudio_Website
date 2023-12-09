@@ -7,12 +7,16 @@ use Illuminate\Http\Request;
 
 class DashboardAdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $client = new Client();
         $url = env("API_URL");
 
-        $transaksis = json_decode($client->request("GET", $url . "/transaksi")->getBody(), true)['data'];
+        $transaksis = json_decode($client->request("GET", $url . "/transaksi", [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true)['data'];
 
         $saldo = 0;
         $totalTransaksi = 0;

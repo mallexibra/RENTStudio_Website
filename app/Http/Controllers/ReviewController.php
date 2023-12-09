@@ -7,13 +7,17 @@ use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $client = new Client();
         $url = env("API_URL");
         $idUser = 1;
 
-        $review = json_decode($client->request("GET", $url . "/reviews")->getBody(), true)['data'];
+        $review = json_decode($client->request("GET", $url . "/reviews", [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true)['data'];
 
         $reviews = collect([]);
         foreach ($review as $rvw) {
@@ -26,12 +30,16 @@ class ReviewController extends Controller
         return view("pages.users.review.index", compact('reviews'));
     }
 
-    public function create(String $id)
+    public function create(Request $request, String $id)
     {
         $client = new Client();
         $url = env("API_URL");
 
-        $data = json_decode($client->request("GET", $url . "/studios/" . $id)->getBody(), true)['data'];
+        $data = json_decode($client->request("GET", $url . "/studios/" . $id, [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true)['data'];
 
         return view('pages.users.review.create', compact('data'));
     }
@@ -59,6 +67,9 @@ class ReviewController extends Controller
                     "name" => "deskripsi",
                     "contents" => $request->deskripsi
                 ],
+            ],
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
             ]
         ])->getBody(), true);
 
@@ -74,7 +85,11 @@ class ReviewController extends Controller
         $client = new Client();
         $url = env("API_URL");
 
-        $studios = json_decode($client->request("GET", $url . "/studios")->getBody(), true)['data'];
+        $studios = json_decode($client->request("GET", $url . "/studios", [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true)['data'];
 
         return view('pages.admin.review.index', compact('studios'));
     }

@@ -7,11 +7,15 @@ use Illuminate\Http\Request;
 
 class RiwayatController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $client = new Client();
         $url = env("API_URL");
-        $transaction = json_decode($client->request("GET", $url . '/transaksi')->getBody(), true)['data'];
+        $transaction = json_decode($client->request("GET", $url . '/transaksi', [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true)['data'];
         return view("pages.users.riwayat.index", compact("transaction"));
     }
 
@@ -19,7 +23,11 @@ class RiwayatController extends Controller
     {
         $client = new Client();
         $url = env("API_URL");
-        $transaction = json_decode($client->request("GET", $url . '/transaksi')->getBody(), true)['data'];
+        $transaction = json_decode($client->request("GET", $url . '/transaksi', [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true)['data'];
         $no = 1;
         return view('pages.admin.payment.index', compact('transaction', 'no'));
     }
@@ -35,6 +43,9 @@ class RiwayatController extends Controller
                     "name" => "status",
                     "contents" => $request->status
                 ]
+            ],
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
             ]
         ])->getBody(), true);
 
@@ -48,7 +59,11 @@ class RiwayatController extends Controller
         $client = new Client();
         $url = env("API_URL");
 
-        $transaksi = json_decode($client->request("GET", $url . "/transaksi/" . $id)->getBody(), true)['data'];
+        $transaksi = json_decode($client->request("GET", $url . "/transaksi/" . $id, [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true)['data'];
 
         return view('pages.admin.payment.show', compact('transaksi'));
     }

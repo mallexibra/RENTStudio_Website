@@ -13,14 +13,18 @@ class StudioController extends Controller
         $client = new Client();
         $url =  env("API_URL");
 
-        $studio = json_decode($client->request("GET", $url . "/studios")->getBody(), true)['data'];
+        $studio = json_decode($client->request("GET", $url . "/studios", [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true)['data'];
 
         $no = 1;
 
         return view('pages.admin.studio.index', compact('studio', 'no'));
     }
 
-    public function create(Request $request)
+    public function create()
     {
         return view('pages.admin.studio.create');
     }
@@ -29,7 +33,6 @@ class StudioController extends Controller
     {
         $client = new Client();
         $url =  env("API_URL");
-        // dd($request);
         $response = json_decode($client->request("POST", $url . "/studios", [
             "multipart" => [
                 [
@@ -71,6 +74,9 @@ class StudioController extends Controller
                         "Content-Type" => "<Content-type header>"
                     ]
                 ]
+            ],
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
             ]
         ])->getBody(), true);
 
@@ -86,7 +92,11 @@ class StudioController extends Controller
         $client = new Client();
         $url = env("API_URL");
 
-        $studio = json_decode($client->request("GET", $url . "/studios/" . $id)->getBody(), true)['data'];
+        $studio = json_decode($client->request("GET", $url . "/studios/" . $id, [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true)['data'];
 
         return view('pages.admin.studio.edit', compact('studio'));
     }
@@ -138,6 +148,9 @@ class StudioController extends Controller
                             "Content-Type" => "<Content-type header>"
                         ]
                     ]
+                ],
+                "headers" => [
+                    "Authorization" => "Bearer " . $request->session()->get('token')
                 ]
             ])->getBody(), true);
         } else {
@@ -175,6 +188,9 @@ class StudioController extends Controller
                         "name" => "peralatan",
                         "contents" => $request->peralatan
                     ]
+                ],
+                "headers" => [
+                    "Authorization" => "Bearer " . $request->session()->get('token')
                 ]
             ])->getBody(), true);
         }
@@ -189,7 +205,11 @@ class StudioController extends Controller
         $client = new Client();
         $url = env("API_URL");
 
-        $response = json_decode($client->request("DELETE", $url . "/studios/" . $id)->getBody(), true);
+        $response = json_decode($client->request("DELETE", $url . "/studios/" . $id, [
+            "headers" => [
+                "Authorization" => "Bearer " . $request->session()->get('token')
+            ]
+        ])->getBody(), true);
 
         if ($response['status']) {
             return redirect("/admin/studio");
