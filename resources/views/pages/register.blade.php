@@ -27,6 +27,16 @@
             @method('POST')
             @csrf
 
+            @if (Session::has('error'))
+                <div class="bg-danger rounded text-white">
+                    <ul>
+                        @foreach (Session::get('error') as $item)
+                            <li class="p-2">{{ $item }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="mb-3 w-100">
                 <label for="name" class="form-label">Fullname</label>
                 <input required type="text" name="name" class="form-control w-100" id="name"

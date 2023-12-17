@@ -26,6 +26,12 @@
             @method('POST')
             @csrf
 
+            @if (Session::has('error'))
+                <div class="bg-danger rounded mb-3 text-white">
+                    <p class="p-2">{{ Session::get('error') }}</p>
+                </div>
+            @endif
+
             <div class="mb-3 w-100">
                 <label for="email" class="form-label">Email address</label>
                 <input required type="email" name="email" class="form-control w-100" id="email"

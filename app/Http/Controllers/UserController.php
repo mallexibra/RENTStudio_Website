@@ -121,7 +121,7 @@ class UserController extends Controller
         if ($response) {
             return redirect("/");
         } else {
-            return redirect("/");
+            return redirect("/")->with('error', $response['error_message']);
         }
     }
 
@@ -184,7 +184,7 @@ class UserController extends Controller
         if ($response['status']) {
             return redirect('/admin/account');
         } else {
-            dd($response);
+            return redirect('/admin/account')->with('error', $response['error_message']);
         }
     }
 
@@ -315,7 +315,7 @@ class UserController extends Controller
         if ($response) {
             return redirect("/admin/account");
         } else {
-            return redirect("/admin/account");
+            return redirect("/admin/account")->with('error', $response['error_message']);
         }
     }
 
@@ -376,7 +376,7 @@ class UserController extends Controller
         if ($response['status']) {
             return redirect('/login');
         } else {
-            dd($response);
+            return redirect('/register')->with('error', $response['error_message']);
         }
     }
 
@@ -416,6 +416,8 @@ class UserController extends Controller
             } else {
                 return redirect('/');
             }
+        } else {
+            return redirect("/login")->with('error', $response['message']);
         }
     }
 
