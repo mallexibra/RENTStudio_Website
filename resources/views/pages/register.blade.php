@@ -18,7 +18,7 @@
 <body>
 
     <div class="d-flex min-vh-100 flex-column align-items-center justify-content-center">
-        <img width="225" src="{{ asset('/icons/logo.png') }}" alt="RENTStudio-Logo">
+        <img width="182" src="{{ asset('/icons/logo.png') }}" alt="RENTStudio-Logo">
         <h1 class="fw-bold mt-5">SIGNUP USER</h1>
         <p>Please input your account...</p>
 

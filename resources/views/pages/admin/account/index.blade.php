@@ -34,12 +34,6 @@
                             <td>
                                 <a class="btn btn-yellow d-block w-100"
                                     href="/admin/account/edit/{{ $user['id'] }}">Edit</a>
-                                <form action="/admin/account/delete/{{ $user['id'] }}" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-red mt-2 d-block w-100" onclick="return confirm('Are you sure?')"
-                                        type="submit">Delete</button>
-                                </form>
                             </td>
                         </tr>
                     @endforeach
