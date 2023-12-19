@@ -24,9 +24,7 @@
                             <th scope="row">{{ $no++ }}</th>
                             <td>
                                 @if ($user['profile'])
-                                    <img src="{{ $user['profile'] }}" alt="profile-image">
-                                @else
-                                    <img src="" alt="profile-icon">
+                                    <img width="64" src="{{ $user['profile'] }}" alt="profile-image">
                                 @endif
                             </td>
                             <td>{{ $user['name'] }}</td>
@@ -34,6 +32,14 @@
                             <td>
                                 <a class="btn btn-yellow d-block w-100"
                                     href="/admin/account/edit/{{ $user['id'] }}">Edit</a>
+                                @if ($user['role'] == 'user')
+                                    <form action="/admin/account/delete/{{ $user['id'] }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button class="btn btn-red mt-2 d-block w-100"
+                                            onclick="return confirm('Are you sure?')" type="submit">Delete</button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
