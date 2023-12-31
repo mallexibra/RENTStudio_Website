@@ -13,8 +13,14 @@ class StudioController extends Controller
     public function index()
     {
         try {
-            $studio =
-                Studio::with('reviews')->get();
+            $query = request('query');
+            if ($query != null) {
+                $studio =
+                    Studio::with('reviews')->where('nama', 'like', '%' . $query . '%')->get();
+            } else {
+                $studio =
+                    Studio::with('reviews')->get();
+            }
 
             $users = User::all();
 
@@ -37,6 +43,46 @@ class StudioController extends Controller
             return response()->json([
                 "status" => true,
                 "message" => "GET all data studio successfully",
+                "data" => $studio
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    "status" => false,
+                    "message" => $e->getMessage()
+                ]
+            );
+        }
+    }
+
+    public function search()
+    {
+        try {
+            $query = request('query');
+            $studio =
+                Studio::with('reviews')->where('nama', 'like', '%' . $query . '%')->get();
+
+            $users = User::all();
+
+            foreach ($studio as $item) {
+                foreach ($item['reviews'] as $rvw) {
+                    $tmpUser = [];
+                    foreach ($users as $usr) {
+                        if ($usr['id'] == $rvw['id_user']) {
+                            $tmpUser = $usr;
+                        }
+                    }
+                    $rvw['users'] = $tmpUser;
+                }
+            }
+
+            for ($i = 0; $i < $studio->count(); $i++) {
+                $studio[$i]['thumbnail'] = url('/thumbnails/' . $studio[$i]['thumbnail']);
+            }
+
+            return response()->json([
+                "status" => true,
+                "message" => "SEARCH data studio successfully",
                 "data" => $studio
             ]);
         } catch (\Exception $e) {
