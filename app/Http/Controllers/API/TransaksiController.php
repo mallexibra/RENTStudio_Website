@@ -26,12 +26,19 @@ class TransaksiController extends Controller
     {
 
         try {
-            $transaksi = Transaksi::with(['user', 'studios'])->get();
+            $user = request('id-user');
+
+            if ($user != null) {
+                $transaksi = Transaksi::with(['user', 'studios'])->where('id_user', '=', $user)->get();
+            } else {
+                $transaksi = Transaksi::with(['user', 'studios'])->get();
+            }
             for ($i = 0; $i < $transaksi->count(); $i++) {
                 $transaksi[$i]['bukti'] = url('/bukti/' . $transaksi[$i]['bukti']);
                 $transaksi[$i]['studios']['thumbnail'] = url('/bukti/' . $transaksi[$i]['studios']['thumbnail']);
                 $transaksi[$i]['date'] = $this->convertDate($transaksi[$i]['created_at']);
             }
+
 
             return response()->json([
                 "status" => true,
