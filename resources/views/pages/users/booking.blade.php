@@ -26,7 +26,8 @@
             </div>
             <div class="mb-3">
                 <label for="harga" class="form-label">Harga Studio</label>
-                <input type="number" required class="form-control" name="harga" id="harga" aria-describedby="harga">
+                <input type="number" value="{{ $studio['harga'] }}" disabled class="form-control" name="harga"
+                    id="harga" aria-describedby="harga">
             </div>
             <div class="mb-3">
                 <label for="bukti" class="form-label">Bukti Pembayaran</label>

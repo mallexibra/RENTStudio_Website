@@ -12,7 +12,15 @@ class ReviewController extends Controller
     public function index()
     {
         try {
-            $reviews = Review::with(['users', 'studios'])->get();
+            $user = request('id-user');
+            $studio = request('id-studio');
+            if ($user != null) {
+                $reviews = Review::with(['users', 'studios'])->where('id_user', '=', $user)->get();
+            } else if ($studio != null) {
+                $reviews = Review::with(['users', 'studios'])->where('id_studio', '=', $studio)->get();
+            } else {
+                $reviews = Review::with(['users', 'studios'])->get();
+            }
 
             return response()->json([
                 "status" => true,
