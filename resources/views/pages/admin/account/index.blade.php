@@ -32,7 +32,7 @@
                             <td>
                                 <a class="btn btn-yellow d-block w-100"
                                     href="/admin/account/edit/{{ $user['id'] }}">Edit</a>
-                                @if ($user['role'] == 'user'npm )
+                                @if ($user['role'] == 'user')
                                     <form action="/admin/account/delete/{{ $user['id'] }}" method="post">
                                         @method('DELETE')
                                         @csrf
